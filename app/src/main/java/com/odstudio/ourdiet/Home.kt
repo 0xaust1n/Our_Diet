@@ -59,7 +59,7 @@ class Home : AppCompatActivity() {
         bottomNavi.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         //------------------------------------------------------------------------------------
         // Starting Below For Drawer Navigation
-        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.drawer_layout)
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val actionbar: ActionBar? = supportActionBar
         actionbar?.apply {
