@@ -37,14 +37,15 @@ class Home : AppCompatActivity() {
         transaction.commit()
     }
 
-    // start override fun
+    // start override function On Create
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        //Set Default Fragment => Home Fragment
         val homeFragment = HomeFragment.newInstance()
         openFragment(homeFragment)
-        //下面看起來沒什麼嚎洨用
+        // Declare BottomNavigation on Create event
         val  bottomNavi: BottomNavigationView  = findViewById(R.id.navigationView)
         bottomNavi.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
