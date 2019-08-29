@@ -12,7 +12,6 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
     //Below Starting Declare UI elements
@@ -40,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initialise() {
-        etFirstName= findViewById<View>(R.id.et_first_name) as EditText
+        etFirstName = findViewById<View>(R.id.et_first_name) as EditText
         etLastName = findViewById<View>(R.id.et_last_name) as EditText
         etEmail = findViewById<View>(R.id.et_email) as EditText
         etPassword = findViewById<View>(R.id.et_password) as EditText
@@ -51,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
         btnCreateAccount!!.setOnClickListener { createNewAccount() }
     }
 
-    private fun createNewAccount(){
+    private fun createNewAccount() {
         firstName = etFirstName?.text.toString()
         lastName = etLastName?.text.toString()
         email = etEmail?.text.toString()
@@ -66,38 +65,42 @@ class RegisterActivity : AppCompatActivity() {
                         //Verify Email
                         verifyEmail();
                         //update user profile information
+                        updateUserInfoAndUI()
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            this, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                     }
                 }
         } else {
             Toast.makeText(this, "Enter all details", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun updateUserInfoAndUI() {
         //start next activity
         val intent = Intent(this, Home::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
     }
+
     private fun verifyEmail() {
         val mUser = mAuth!!.currentUser;
         mUser!!.sendEmailVerification()
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this,
+                    Toast.makeText(
+                        this,
                         "Verification email sent to " + mUser.getEmail(),
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(this,
+                    Toast.makeText(
+                        this,
                         "Failed to send verification email.",
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
