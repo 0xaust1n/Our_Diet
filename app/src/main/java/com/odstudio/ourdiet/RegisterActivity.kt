@@ -79,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun updateUserInfoAndUI() {
         //start next activity
-        val intent = Intent(this, Home::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
     }
