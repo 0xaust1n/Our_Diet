@@ -62,8 +62,14 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success")
+                        //load User's UID
+                        val userId = mAuth!!.currentUser!!.uid
                         //Verify Email
                         verifyEmail();
+                        //push to Database
+                        val currentUserDb = mDatabaseReference!!.child(userId)
+                        currentUserDb.child("firstName").setValue(firstName)
+                        currentUserDb.child("lastName").setValue(lastName)
                         //update user profile information
                         updateUserInfoAndUI()
                     } else {
