@@ -1,21 +1,23 @@
 package com.odstudio.ourdiet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Home : AppCompatActivity() {
     //.....分割線開始 Left Navigation
     private lateinit var mDrawerLayout: DrawerLayout
-
+    val uid = FirebaseAuth.getInstance().uid.toString()
     //.....分割線開始 Bottom Navigation Click Listener
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -51,6 +53,7 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        verifyUserIsLoggedIn()
         //Set Default Fragment => Home Fragment
         val homeFragment = HomeFragment.newInstance()
         openFragment(homeFragment)
@@ -94,6 +97,7 @@ class Home : AppCompatActivity() {
         }
 
     }
+
     //appbar - toolbar button click
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -103,6 +107,15 @@ class Home : AppCompatActivity() {
             }
 
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun verifyUserIsLoggedIn() {
+        val user_document = FirebaseFirestore.getInstance().collection("Users").document(uid)
+        if (user_document == null) {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
     }
 }

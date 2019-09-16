@@ -12,12 +12,12 @@
             android:roundIcon="@mipmap/logo_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Home" />
-        <activity android:name=".ForgotPasswordActivity"/>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".RegisterActivity" />
         <!-- Starting Activity Below -->
-        <activity android:name=".LoginActivity">
-            <intent-filter>
+        <activity android:name=".Home">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />

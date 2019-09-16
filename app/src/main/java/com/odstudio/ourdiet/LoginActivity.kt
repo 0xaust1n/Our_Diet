@@ -10,10 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.core.Tag
-import com.google.firebase.database.core.view.View
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
+
 
 
 class LoginActivity : AppCompatActivity() {

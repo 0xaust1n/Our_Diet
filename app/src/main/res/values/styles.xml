@@ -22,5 +22,8 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
-
+    <!--Login -->
+    <style name="MyTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/signinbackground</item>
+    </style>
 </resources>

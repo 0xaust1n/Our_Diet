@@ -12,6 +12,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.odstudio.ourdiet.Data_Class.User
 
 class RegisterActivity : AppCompatActivity() {
     //Below Starting Declare UI elements
@@ -23,8 +25,8 @@ class RegisterActivity : AppCompatActivity() {
 
     //Below Starting Declare String
     private val TAG = "RegisterActivity"
-    private var firstName: String? = null
-    private var lastName: String? = null
+    private var FirstName: String? = null
+    private var LastName: String? = null
     private var email: String? = null
     private var password: String? = null
 
@@ -51,8 +53,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createNewAccount() {
-        firstName = etFirstName?.text.toString()
-        lastName = etLastName?.text.toString()
         email = etEmail?.text.toString()
         password = etPassword?.text.toString()
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
@@ -62,14 +62,14 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success")
-                        //load User's UID
-                        val userId = mAuth!!.currentUser!!.uid
                         //Verify Email
-                        verifyEmail();
+                        //verifyEmail()
                         //push to Database
-                        val currentUserDb = mDatabaseReference!!.child(userId)
-                        currentUserDb.child("firstName").setValue(firstName)
-                        currentUserDb.child("lastName").setValue(lastName)
+                        val userid = mAuth!!.currentUser!!.uid.toString()
+                        val lastName = etLastName!!.text.toString()
+                        val firstNmae = etFirstName!!.text.toString()
+                        val Account = User(userid, lastName, firstNmae)
+                        FirebaseFirestore.getInstance().collection("Users").document(userid).set(Account)
                         //update user profile information
                         updateUserInfoAndUI()
                     } else {
@@ -89,6 +89,8 @@ class RegisterActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
     }
+
+
 
     private fun verifyEmail() {
         val mUser = mAuth!!.currentUser;
@@ -110,4 +112,6 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
+
 }
+
