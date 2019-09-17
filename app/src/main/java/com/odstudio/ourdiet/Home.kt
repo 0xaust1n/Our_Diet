@@ -10,14 +10,15 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.fragment.app.Fragment
+import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+
 
 class Home : AppCompatActivity() {
+    private var finished:Boolean = false
     //.....分割線開始 Left Navigation
     private lateinit var mDrawerLayout: DrawerLayout
-    val uid = FirebaseAuth.getInstance().uid.toString()
     //.....分割線開始 Bottom Navigation Click Listener
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -53,6 +54,7 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        verifyAlreadyLoggedout()
         verifyUserIsLoggedIn()
         //Set Default Fragment => Home Fragment
         val homeFragment = HomeFragment.newInstance()
@@ -87,7 +89,7 @@ class Home : AppCompatActivity() {
                     Toast.makeText(this, "@string/setting", Toast.LENGTH_LONG).show()
                 }
                 R.id.daw_logout -> {
-                    Toast.makeText(this, "@string/logout", Toast.LENGTH_LONG).show()
+                    logout()
                 }
             }
             // Add code here to update the UI based on the item selected
@@ -109,10 +111,27 @@ class Home : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+    private fun logout(){
+        finished = true
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener {
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
 
+            }
+    }
+    private fun verifyAlreadyLoggedout(){
+        if (finished) {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+    }
     private fun verifyUserIsLoggedIn() {
-        val user_document = FirebaseFirestore.getInstance().collection("Users").document(uid)
-        if (user_document == null) {
+        val logged = FirebaseAuth.getInstance().currentUser
+        if (logged == null) {
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
