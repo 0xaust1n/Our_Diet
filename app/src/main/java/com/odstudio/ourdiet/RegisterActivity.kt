@@ -24,9 +24,9 @@ class RegisterActivity : AppCompatActivity() {
     private var btnCreateAccount: Button? = null
 
     //Below Starting Declare String
-    private val TAG = "RegisterActivity"
-    private var FirstName: String? = null
-    private var LastName: String? = null
+    private val tag = "RegisterActivity"
+    private var firstname: String? = null
+    private var lastname: String? = null
     private var email: String? = null
     private var password: String? = null
 
@@ -55,26 +55,30 @@ class RegisterActivity : AppCompatActivity() {
     private fun createNewAccount() {
         email = etEmail?.text.toString()
         password = etPassword?.text.toString()
-        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+        lastname = etLastName?.text.toString()
+        firstname = etFirstName?.text.toString()
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)
+            && !TextUtils.isEmpty(lastname) && !TextUtils.isEmpty(firstname)) {
             mAuth!!
                 .createUserWithEmailAndPassword(email!!, password!!)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success")
+                        Log.d(tag, "createUserWithEmail:success")
                         //Verify Email
                         //verifyEmail()
                         //push to Database
-                        val userid = mAuth!!.currentUser!!.uid.toString()
-                        val lastName = etLastName!!.text.toString()
-                        val firstNmae = etFirstName!!.text.toString()
-                        val Account = User(userid, lastName, firstNmae)
-                        FirebaseFirestore.getInstance().collection("Users").document(userid).set(Account)
+                        val uid = mAuth!!.currentUser!!.uid
+                        val lastname = etLastName!!.text.toString()
+                        val firstname = etFirstName!!.text.toString()
+                        val email = etEmail!!.text.toString()
+                        val account = User(uid, lastname, firstname,email)
+                        FirebaseFirestore.getInstance().collection("Users").document(uid).set(account)
                         //update user profile information
                         updateUserInfoAndUI()
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                        Log.w(tag, "createUserWithEmail:failure", task.exception)
                         Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -103,7 +107,7 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Log.w(tag, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
                         this,
                         "Failed to send verification email.",

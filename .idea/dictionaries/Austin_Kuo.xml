@@ -3,6 +3,9 @@
     <words>
       <w>depen</w>
       <w>firebase</w>
+	  <w>firstname</w>
+      <w>lastname</w>
+      <w>loggedout</w>
     </words>
   </dictionary>
 </component>

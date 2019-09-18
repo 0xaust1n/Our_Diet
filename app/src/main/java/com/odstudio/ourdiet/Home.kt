@@ -83,7 +83,8 @@ class Home : AppCompatActivity() {
             when (menuItem.itemId) {
 
                 R.id.daw_personal -> {
-                    Toast.makeText(this, "@string/personal", Toast.LENGTH_LONG).show()
+                    val personalFragment = PersonalFragment.newInstance()
+                    openFragment(personalFragment)
                 }
                 R.id.daw_setting -> {
                     Toast.makeText(this, "@string/setting", Toast.LENGTH_LONG).show()

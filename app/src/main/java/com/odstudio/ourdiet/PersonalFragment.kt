@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 
 
 
-class FriendsFragment: Fragment(){
+class PersonalFragment: Fragment(){
     companion object{
-        fun  newInstance(): FriendsFragment = FriendsFragment()
+        fun  newInstance(): PersonalFragment = PersonalFragment()
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_friends, container, false)
-}
+        return inflater.inflate(R.layout.fragment_personal, container, false)
+    }
 }
