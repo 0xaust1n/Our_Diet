@@ -1,6 +1,6 @@
 <resources>
     <!--- Page and Base -->
-    <string name="app_name">Our diet</string>
+    <string name="app_name">Our Diet</string>
     <string name="title_activity_home">Home</string>
     <string name="home">Home</string>
     <string name="groups">Groups</string>
@@ -26,4 +26,5 @@
     <string name="login_title">Login</string>
     <string name="create_act">Create Account</string>
     <string name="forgatpassword">忘記密碼</string>
+    <string name="UploadIMG">上傳頭像</string>
 </resources>

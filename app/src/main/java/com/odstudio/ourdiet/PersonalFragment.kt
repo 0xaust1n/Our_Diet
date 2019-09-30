@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import org.w3c.dom.Text
+
 
 
 class PersonalFragment: Fragment() {
@@ -24,7 +24,6 @@ class PersonalFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-     center = getView()?.findViewById(R.id.text_center)!!
-     center?.text =  FirebaseAuth.getInstance().currentUser!!.uid
+
     }
 }
