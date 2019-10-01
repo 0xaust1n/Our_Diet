@@ -27,4 +27,6 @@
     <string name="create_act">Create Account</string>
     <string name="forgatpassword">忘記密碼</string>
     <string name="UploadIMG">上傳頭像</string>
+    <string name="hint_nickname">請輸入暱稱</string>
+    <string name="hint_birthday">請輸入生日</string>
 </resources>
